@@ -3,7 +3,7 @@ import Card from "../components/card";
 
 const Homepage = () => {
   return (
-    <div className="w-[50%] mx-auto pt-4 flex flex-col gap-3 ">
+    <div className="w-[52%] mx-auto pt-4 flex flex-col gap-3 ">
       <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
         <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2">
           <h1 className="font-bold text-2xl">Hamidu Sodiq Omeiza</h1>
@@ -34,7 +34,76 @@ const Homepage = () => {
           <Card>CSS</Card>
         </div>
       </div>
-      <div className="projects"></div>
+      <div className="projects flex gap-2 flex-col">
+        <h1 className="text-white text-lg font-bold">Featured Projects</h1>
+        <div className="projects-wrapper flex flex-col gap-5">
+          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
+            <div className="h-40 image-wrapper">
+              <img
+                src="/image1.jpg"
+                alt="project-1"
+                className="object-cover w-full h-full rounded-md"
+              />
+            </div>
+            <div className="flex gap-3">
+              <div>
+                <h1 className="text-white font-bold text-base">
+                  Project Alpha
+                </h1>
+                <p className="text-[#8FADCC] text-sm">
+                  A web application for managing tasks and projects
+                </p>
+              </div>
+              <div className="self-center text-white">
+                <Card color="bg-[#3D99F5]">View Project</Card>
+              </div>
+            </div>
+          </div>
+          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
+            <div className="h-40 image-wrapper">
+              <img
+                src="/image2.jpg"
+                alt="project-1"
+                className="object-cover w-full h-full rounded-md"
+              />
+            </div>
+            <div className="flex gap-3">
+              <div>
+                <h1 className="text-white font-bold text-base">Project Beta</h1>
+                <p className="text-[#8FADCC] text-sm">
+                  An e-commerce platform for selling digital products
+                </p>
+              </div>
+              <div className="self-center text-white">
+                <Card color="bg-[#3D99F5]">View Project</Card>
+              </div>
+            </div>
+          </div>
+          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
+            <div className="h-40 image-wrapper">
+              <img
+                src="/image3.jpg"
+                alt="project-1"
+                className="object-cover w-full h-full rounded-md"
+              />
+            </div>
+            <div className="flex gap-3">
+              <div>
+                <h1 className="text-white font-bold text-base">
+                  Project Gamma
+                </h1>
+                <p className="text-[#8FADCC] text-sm">
+                  A social media platform for sharing ideas and connecting with
+                  others
+                </p>
+              </div>
+              <div className="self-center text-white">
+                <Card color="bg-[#3D99F5]">View Project</Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="contact"></div>
       <div className="footer"></div>
     </div>
