@@ -3,7 +3,7 @@ import Card from "../components/card";
 
 const Homepage = () => {
   return (
-    <div className="w-[52%] mx-auto pt-4 flex flex-col gap-3 ">
+    <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
       <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
         <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2">
           <h1 className="font-bold text-2xl">Hamidu Sodiq Omeiza</h1>
@@ -104,7 +104,34 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <div className="contact"></div>
+      <div className="contact flex flex-col gap-3">
+        <h1 className="text-white font-bold text-lg">Contact</h1>
+        <div className="text-[#8FADCC] flex flex-col gap-4 flex-auto max-w-xs">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Your Name"
+            className="bg-[#21364A] py-2 px-3 rounded-md"
+          />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Your Email"
+            className="bg-[#21364A] py-2 px-3 rounded-md"
+          />
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Your Message"
+            className="bg-[#21364A] py-2 px-3 rounded-md resize-none h-28"
+          />
+        </div>
+        <div className="self-start text-white">
+          <Card color="bg-[#3D99F5]">Send Message</Card>
+        </div>
+      </div>
       <div className="footer"></div>
     </div>
   );
