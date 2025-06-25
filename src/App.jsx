@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/navigation";
 import Homepage from "./pages/Homepage";
 import Footer from "./components/footer";
+import Project from "./pages/Project";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" index element={<Homepage />} />
+        <Route path="/projects" element={<Project />} />
       </Routes>
       <Footer />
     </div>

@@ -1,8 +1,21 @@
 import React from "react";
 import Card from "../components/card";
 import Footer from "../components/footer";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Homepage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
   return (
     <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
       <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
@@ -11,7 +24,7 @@ const Homepage = () => {
           <p className="text-sm">Full-Stack Web+Mobile Developer</p>
         </div>
       </div>
-      <div className="text-white flex flex-col gap-2">
+      <section id="about" className="text-white flex flex-col gap-2">
         <h1 className="font-bold text-lg ">About Me</h1>
         <p className="text-sm">
           I'm a full-stack developer with a passion for creating innovative and
@@ -20,7 +33,7 @@ const Homepage = () => {
           challenges and delivering high-quality solutions. My goal is to build
           impactful produts that make a difference
         </p>
-      </div>
+      </section>
       <div className="text-white flex flex-col gap-2">
         <h1 className="font-bold text-lg">Skills</h1>
         <div className="flex flex-wrap gap-2">
@@ -35,7 +48,7 @@ const Homepage = () => {
           <Card>CSS</Card>
         </div>
       </div>
-      <div className="projects flex gap-2 flex-col">
+      <section id="projects" className="projects flex gap-2 flex-col">
         <h1 className="text-white text-lg font-bold">Featured Projects</h1>
         <div className="projects-wrapper flex flex-col gap-5">
           <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
@@ -104,8 +117,8 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="contact flex flex-col gap-3">
+      </section>
+      <section id="contact" className="contact flex flex-col gap-3">
         <h1 className="text-white font-bold text-lg">Contact</h1>
         <div className="text-[#8FADCC] flex flex-col gap-4 flex-auto max-w-xs">
           <input
@@ -132,7 +145,7 @@ const Homepage = () => {
         <div className="self-start text-white">
           <Card color="bg-[#3D99F5]">Send Message</Card>
         </div>
-      </div>
+      </section>
       {/* <Footer /> */}
     </div>
   );

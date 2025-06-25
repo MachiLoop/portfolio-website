@@ -9,9 +9,9 @@ const Navigation = () => {
       </div>
       <div>
         <nav className="flex gap-4 items-center">
-          <Link to="/">About</Link>
-          <Link to="/">Projects</Link>
-          <Link to="/">Contact</Link>
+          <Link to="/#about">About</Link>
+          <Link to="/projects">Projects</Link>
+          <Link to="/#contact">Contact</Link>
           <Link to="/" className="bg-[#3D99F5] px-2 rounded-md py-1 ">
             Resume
           </Link>
