@@ -12,9 +12,13 @@ const Navigation = () => {
           <Link to="/#about">About</Link>
           <Link to="/projects">Projects</Link>
           <Link to="/#contact">Contact</Link>
-          <Link to="/" className="bg-[#3D99F5] px-2 rounded-md py-1 ">
+          <a
+            href="/Sodiq_Hamidu_resume.pdf"
+            download
+            className="bg-[#3D99F5] px-1 rounded-md py-1 "
+          >
             Resume
-          </Link>
+          </a>
         </nav>
       </div>
     </div>
