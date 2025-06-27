@@ -5,7 +5,7 @@ const Card = ({ children, color, styles }) => {
     <div
       className={`${
         color || "bg-[#21364A]"
-      } rounded-sm text-nowrap px-4 py-1 text-sm`}
+      }  rounded-sm text-nowrap px-4 py-1 text-sm ${styles || ""}`}
     >
       {children}
     </div>

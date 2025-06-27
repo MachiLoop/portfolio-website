@@ -3,6 +3,7 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Wrapper from "../components/wrapper";
 
 const Homepage = () => {
   const location = useLocation();
@@ -17,7 +18,8 @@ const Homepage = () => {
   }, [location]);
 
   return (
-    <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
+    // <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
+    <Wrapper>
       <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
         <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2">
           <h1 className="font-bold text-2xl">Hamidu Sodiq Omeiza</h1>
@@ -147,7 +149,8 @@ const Homepage = () => {
         </div>
       </section>
       {/* <Footer /> */}
-    </div>
+      {/* </div> */}
+    </Wrapper>
   );
 };
 
