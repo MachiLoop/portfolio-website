@@ -1,12 +1,38 @@
 import React from "react";
 import Card from "../components/card";
 import Footer from "../components/footer";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Wrapper from "../components/wrapper";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 
 const Homepage = () => {
   const location = useLocation();
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_3fo37dh", // replace with your actual Service ID
+        "template_31fnx09", // replace with your actual Template ID
+        form.current,
+        "qfuesS-BYungC5wvI" // replace with your actual Public Key
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast.success("Message sent successfully!");
+          form.current.reset();
+        },
+        (error) => {
+          console.log(error.text);
+          toast.error("Failed to send message. Please try again later.");
+        }
+      );
+  };
 
   useEffect(() => {
     if (location.hash) {
@@ -122,31 +148,35 @@ const Homepage = () => {
       </section>
       <section id="contact" className="contact flex flex-col gap-3">
         <h1 className="text-white font-bold text-lg">Contact</h1>
-        <div className="text-[#8FADCC] flex flex-col gap-4 flex-auto max-w-xs">
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Your Name"
-            className="bg-[#21364A] py-2 px-3 rounded-md"
-          />
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Your Email"
-            className="bg-[#21364A] py-2 px-3 rounded-md"
-          />
-          <textarea
-            name="message"
-            id="message"
-            placeholder="Your Message"
-            className="bg-[#21364A] py-2 px-3 rounded-md resize-none h-28"
-          />
-        </div>
-        <div className="self-start text-white">
-          <Card color="bg-[#3D99F5]">Send Message</Card>
-        </div>
+        <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-2">
+          <div className="text-[#8FADCC] flex flex-col gap-4 flex-auto max-w-xs">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Your Name"
+              className="bg-[#21364A] py-2 px-3 rounded-md"
+            />
+            <input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Your Email"
+              className="bg-[#21364A] py-2 px-3 rounded-md"
+            />
+            <textarea
+              name="message"
+              id="message"
+              placeholder="Your Message"
+              className="bg-[#21364A] py-2 px-3 rounded-md resize-none h-28"
+            />
+          </div>
+          <div className="self-start text-white">
+            <button type="submit" className="bg-[#3D99F5] px-2 py-1 rounded-md">
+              Send Message
+            </button>
+          </div>
+        </form>
       </section>
       {/* <Footer /> */}
       {/* </div> */}

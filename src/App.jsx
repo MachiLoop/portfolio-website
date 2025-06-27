@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 // import "./App.css";
 import Navigation from "./components/navigation";
 import Homepage from "./pages/Homepage";
@@ -15,6 +17,7 @@ function App() {
         <Route path="/projects" element={<Project />} />
       </Routes>
       <Footer />
+      <ToastContainer position="top-center" />
     </div>
   );
 }
