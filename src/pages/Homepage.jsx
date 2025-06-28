@@ -6,32 +6,49 @@ import { useLocation } from "react-router-dom";
 import Wrapper from "../components/wrapper";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import useFetchJson from "../hooks/useFetchJson";
 
 const Homepage = () => {
+  const {
+    data: about,
+    loading: loadingAbout,
+    error: errorAbout,
+  } = useFetchJson("/data/about.json");
+  const {
+    data: skills,
+    loading: loadingSkills,
+    error: errorSkills,
+  } = useFetchJson("/data/skills.json");
+  const {
+    data: projects,
+    loading: loadingProjects,
+    error: errorProjects,
+  } = useFetchJson("/data/projects.json");
+
   const location = useLocation();
   const form = useRef();
 
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_3fo37dh", // replace with your actual Service ID
-        "template_31fnx09", // replace with your actual Template ID
-        form.current,
-        "qfuesS-BYungC5wvI" // replace with your actual Public Key
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          toast.success("Message sent successfully!");
-          form.current.reset();
-        },
-        (error) => {
-          console.log(error.text);
-          toast.error("Failed to send message. Please try again later.");
-        }
-      );
+    // emailjs
+    //   .sendForm(
+    //     "service_3fo37dh", // replace with your actual Service ID
+    //     "template_31fnx09", // replace with your actual Template ID
+    //     form.current,
+    //     "qfuesS-BYungC5wvI" // replace with your actual Public Key
+    //   )
+    //   .then(
+    //     (result) => {
+    //       console.log(result.text);
+    //       toast.success("Message sent successfully!");
+    //       form.current.reset();
+    //     },
+    //     (error) => {
+    //       console.log(error.text);
+    //       toast.error("Failed to send message. Please try again later.");
+    //     }
+    //   );
   };
 
   useEffect(() => {
@@ -43,39 +60,34 @@ const Homepage = () => {
     }
   }, [location]);
 
+  if (loadingAbout || loadingSkills || loadingProjects)
+    return <p>Loading...</p>;
+  if (errorAbout || errorSkills || errorProjects)
+    return <p>Error loading some data.</p>;
+
   return (
     // <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
     <Wrapper>
       <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
         <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2">
-          <h1 className="font-bold text-2xl">Hamidu Sodiq Omeiza</h1>
-          <p className="text-sm">Full-Stack Web+Mobile Developer</p>
+          <h1 className="font-bold text-2xl">{about.name}</h1>
+          <p className="text-sm">{about.title}</p>
         </div>
       </div>
       <section id="about" className="text-white flex flex-col gap-2">
         <h1 className="font-bold text-lg ">About Me</h1>
-        <p className="text-sm">
-          I'm a full-stack developer with a passion for creating innovative and
-          user-friendly web and mobile applications. With a storing foundation
-          in both front-end and back-end technologies, I enjoy tackling complex
-          challenges and delivering high-quality solutions. My goal is to build
-          impactful produts that make a difference
-        </p>
+        <p className="text-sm">{about.bio}</p>
       </section>
       <div className="text-white flex flex-col gap-2">
         <h1 className="font-bold text-lg">Skills</h1>
         <div className="flex flex-wrap gap-2">
-          <Card>React</Card>
-          <Card>React Native</Card>
-          <Card>NodeJs</Card>
-          <Card>MongoDB</Card>
-          <Card>REST APIs</Card>
-          <Card>Tailwind</Card>
-          <Card>Git</Card>
-          <Card>HTML</Card>
-          <Card>CSS</Card>
+          {skills.map((skill, i) => (
+            <Card key={i}>{skill}</Card>
+          ))}
         </div>
       </div>
+
+      {/*  */}
       <section id="projects" className="projects flex gap-2 flex-col">
         <h1 className="text-white text-lg font-bold">Featured Projects</h1>
         <div className="projects-wrapper flex flex-col gap-5">
@@ -172,7 +184,10 @@ const Homepage = () => {
             />
           </div>
           <div className="self-start text-white">
-            <button type="submit" className="bg-[#3D99F5] px-2 py-1 rounded-md">
+            <button
+              type="submit"
+              className="bg-[#3D99F5] px-2 py-1 rounded-md cursor-pointer"
+            >
               Send Message
             </button>
           </div>

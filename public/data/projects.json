@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Project Alpha",
+    "description": "A web application for managing tasks and projects",
+    "image": "/image1.jpg",
+    "category": "Web Development",
+    "link": "https://yourprojectalpha.com",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "Project Beta",
+    "description": "An e-commerce platform for selling digital products",
+    "image": "/image2.jpg",
+    "category": "Mobile Development",
+    "link": "https://yourprojectbeta.com",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "name": "Project Gamma",
+    "description": "A social media platform for sharing ideas and connecting with others",
+    "image": "/image3.jpg",
+    "category": "Web Development",
+    "link": "https://yourprojectgamma.com",
+    "featured": false
+  }
+]
