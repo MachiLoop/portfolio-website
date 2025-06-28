@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Wrapper from "../components/wrapper";
 import Card from "../components/card";
+import useFetchJson from "../hooks/useFetchJson.js";
 
 const Project = () => {
+  const {
+    data: projects,
+    loading: loadingProjects,
+    error: errorProjects,
+  } = useFetchJson("/data/projects.json");
+
+  const [filterCategory, setFilterCategory] = useState("");
+
+  if (loadingProjects) return <p>Loading...</p>;
+  if (errorProjects) return <p>Error loading some data.</p>;
+
   return (
     <Wrapper>
       <div className="heading  flex flex-col gap-0.5 ">
@@ -24,131 +36,48 @@ const Project = () => {
           />
         </div>
         <div className="flex gap-2 text-white ">
-          <Card styles="cursor-pointer">All</Card>
-          <Card styles="cursor-pointer">Web Development</Card>
-          <Card styles="cursor-pointer">Mobile Development</Card>
+          <Card
+            styles="cursor-pointer"
+            onClickHandler={() => setFilterCategory("")}
+          >
+            All
+          </Card>
+          <Card
+            styles="cursor-pointer"
+            onClickHandler={() => setFilterCategory("Web Development")}
+          >
+            Web Development
+          </Card>
+          <Card
+            styles="cursor-pointer"
+            onClickHandler={() => setFilterCategory("Mobile Development")}
+          >
+            Mobile Development
+          </Card>
         </div>
       </div>
       <div className="projects-list grid grid-cols-3 gap-x-3 gap-y-6">
-        {/* section 1 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image1.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-md"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
-
-        {/* section 2 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image2.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-md"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
-
-        {/* section 3 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image3.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-md"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
-
-        {/* section 4 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image2.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
-
-        {/* section 5 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image3.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
-
-        {/* section 6 */}
-        <div className="text-sm flex flex-col gap-3">
-          <div className="h-40">
-            <img
-              src="image1.jpg"
-              alt=""
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <a href="/" className="text-white font-semibold">
-              E-commerce Platform
-            </a>
-            <p className="text-[#9CADBF]">
-              A full-featured e-commerce platform with user authentication,
-              product management and payment integration
-            </p>
-          </div>
-        </div>
+        {projects
+          .filter((project) =>
+            filterCategory === "" ? true : project.category === filterCategory
+          )
+          .map((project) => (
+            <div key={project.id} className="text-sm flex flex-col gap-3">
+              <div className="h-40">
+                <img
+                  src={project.image}
+                  alt={project.name}
+                  className="w-full h-full object-cover rounded-md"
+                />
+              </div>
+              <div>
+                <a href={project.link} className="text-white font-semibold">
+                  {project.name}
+                </a>
+                <p className="text-[#9CADBF]">{project.description}</p>
+              </div>
+            </div>
+          ))}
       </div>
     </Wrapper>
   );
