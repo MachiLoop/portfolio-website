@@ -28,37 +28,41 @@ const Homepage = () => {
   const location = useLocation();
   const form = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    // emailjs
-    //   .sendForm(
-    //     "service_3fo37dh", // replace with your actual Service ID
-    //     "template_31fnx09", // replace with your actual Template ID
-    //     form.current,
-    //     "qfuesS-BYungC5wvI" // replace with your actual Public Key
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       toast.success("Message sent successfully!");
-    //       form.current.reset();
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //       toast.error("Failed to send message. Please try again later.");
-    //     }
-    //   );
-  };
-
   useEffect(() => {
     if (location.hash) {
-      const element = document.querySelector(location.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      const scrollToElement = () => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+
+      // Delay to ensure the DOM is ready
+      setTimeout(scrollToElement, 100);
     }
   }, [location]);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_3fo37dh", // replace with your actual Service ID
+        "template_31fnx09", // replace with your actual Template ID
+        form.current,
+        "qfuesS-BYungC5wvI" // replace with your actual Public Key
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast.success("Message sent successfully!");
+          form.current.reset();
+        },
+        (error) => {
+          console.log(error.text);
+          toast.error("Failed to send message. Please try again later.");
+        }
+      );
+  };
 
   if (loadingAbout || loadingSkills || loadingProjects)
     return <p>Loading...</p>;
@@ -87,75 +91,48 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/*  */}
+      {/* projects */}
       <section id="projects" className="projects flex gap-2 flex-col">
         <h1 className="text-white text-lg font-bold">Featured Projects</h1>
         <div className="projects-wrapper flex flex-col gap-5">
-          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
-            <div className="h-40 image-wrapper">
-              <img
-                src="/image1.jpg"
-                alt="project-1"
-                className="object-cover w-full h-full rounded-md"
-              />
-            </div>
-            <div className="flex gap-3">
-              <div>
-                <h1 className="text-white font-bold text-base">
-                  Project Alpha
-                </h1>
-                <p className="text-[#8FADCC] text-sm">
-                  A web application for managing tasks and projects
-                </p>
+          {/* project 1 */}
+          {projects
+            .filter((project) => project.featured)
+            .map((project) => (
+              <div
+                key={project.id}
+                className="project-wrapper grid [grid-template-columns:42%_58%] gap-3"
+              >
+                <div className="h-40 image-wrapper">
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    className="object-cover w-full h-full rounded-md"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <div>
+                    <h1 className="text-white font-bold text-base">
+                      {project.name}
+                    </h1>
+                    <p className="text-[#8FADCC] text-sm">
+                      {project.description}
+                    </p>
+                  </div>
+                  <div className="self-center text-white">
+                    <Card color="bg-[#3D99F5]">
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Project
+                      </a>
+                    </Card>
+                  </div>
+                </div>
               </div>
-              <div className="self-center text-white">
-                <Card color="bg-[#3D99F5]">View Project</Card>
-              </div>
-            </div>
-          </div>
-          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
-            <div className="h-40 image-wrapper">
-              <img
-                src="/image2.jpg"
-                alt="project-1"
-                className="object-cover w-full h-full rounded-md"
-              />
-            </div>
-            <div className="flex gap-3">
-              <div>
-                <h1 className="text-white font-bold text-base">Project Beta</h1>
-                <p className="text-[#8FADCC] text-sm">
-                  An e-commerce platform for selling digital products
-                </p>
-              </div>
-              <div className="self-center text-white">
-                <Card color="bg-[#3D99F5]">View Project</Card>
-              </div>
-            </div>
-          </div>
-          <div className="project-wrapper grid [grid-template-columns:42%_58%] gap-3">
-            <div className="h-40 image-wrapper">
-              <img
-                src="/image3.jpg"
-                alt="project-1"
-                className="object-cover w-full h-full rounded-md"
-              />
-            </div>
-            <div className="flex gap-3">
-              <div>
-                <h1 className="text-white font-bold text-base">
-                  Project Gamma
-                </h1>
-                <p className="text-[#8FADCC] text-sm">
-                  A social media platform for sharing ideas and connecting with
-                  others
-                </p>
-              </div>
-              <div className="self-center text-white">
-                <Card color="bg-[#3D99F5]">View Project</Card>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
       </section>
       <section id="contact" className="contact flex flex-col gap-3">
@@ -193,8 +170,6 @@ const Homepage = () => {
           </div>
         </form>
       </section>
-      {/* <Footer /> */}
-      {/* </div> */}
     </Wrapper>
   );
 };
