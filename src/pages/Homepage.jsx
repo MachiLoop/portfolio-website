@@ -38,7 +38,7 @@ const Homepage = () => {
       };
 
       // Delay to ensure the DOM is ready
-      setTimeout(scrollToElement, 100);
+      setTimeout(scrollToElement, 500);
     }
   }, [location]);
 
