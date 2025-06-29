@@ -35,7 +35,7 @@ const Project = () => {
             className="outline-none w-full h-full text-[#9CADBF] px-2 "
           />
         </div>
-        <div className="flex gap-2 text-white ">
+        <div className="flex gap-2 text-white flex-wrap">
           <Card
             styles="cursor-pointer"
             onClickHandler={() => setFilterCategory("")}
@@ -56,14 +56,14 @@ const Project = () => {
           </Card>
         </div>
       </div>
-      <div className="projects-list grid grid-cols-3 gap-x-3 gap-y-6">
+      <div className="projects-list grid grid-cols-3 gap-x-3 gap-y-6 max-lg:grid-cols-2">
         {projects
           .filter((project) =>
             filterCategory === "" ? true : project.category === filterCategory
           )
           .map((project) => (
             <div key={project.id} className="text-sm flex flex-col gap-3">
-              <div className="h-40">
+              <div className="h-40 max-sm:h-28">
                 <img
                   src={project.image}
                   alt={project.name}
@@ -74,7 +74,9 @@ const Project = () => {
                 <a href={project.link} className="text-white font-semibold">
                   {project.name}
                 </a>
-                <p className="text-[#9CADBF]">{project.description}</p>
+                <p className="text-[#9CADBF] max-sm:text-xs">
+                  {project.description}
+                </p>
               </div>
             </div>
           ))}
