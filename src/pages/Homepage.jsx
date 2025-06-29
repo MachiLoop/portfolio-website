@@ -72,8 +72,8 @@ const Homepage = () => {
   return (
     // <div className="w-[52%] mx-auto pt-4 flex flex-col gap-6 ">
     <Wrapper>
-      <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative">
-        <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2">
+      <div className="bg-[url(/bg-banner.png)] h-[300px] w-full bg-cover relative max-sm:h-[240px]">
+        <div className="absolute bottom-5 left-1/4 text-white flex flex-col gap-2 max-sm:left-5 max-sm:gap-0.5">
           <h1 className="font-bold text-2xl">{about.name}</h1>
           <p className="text-sm">{about.title}</p>
         </div>
@@ -101,7 +101,7 @@ const Homepage = () => {
             .map((project) => (
               <div
                 key={project.id}
-                className="project-wrapper grid [grid-template-columns:42%_58%] gap-3"
+                className="project-wrapper grid [grid-template-columns:42%_58%] gap-3 max-sm:flex max-sm:flex-col"
               >
                 <div className="h-40 image-wrapper">
                   <img
@@ -110,7 +110,7 @@ const Homepage = () => {
                     className="object-cover w-full h-full rounded-md"
                   />
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-3 max-sm:flex max-sm:flex-col">
                   <div>
                     <h1 className="text-white font-bold text-base">
                       {project.name}
@@ -119,7 +119,7 @@ const Homepage = () => {
                       {project.description}
                     </p>
                   </div>
-                  <div className="self-center text-white">
+                  <div className="self-center text-white max-sm:self-start">
                     <Card color="bg-[#3D99F5]">
                       <a
                         href={project.link}
