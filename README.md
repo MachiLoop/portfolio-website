@@ -91,15 +91,15 @@ The contact form uses [EmailJS](https://www.emailjs.com) for sending messages wi
 
 ### 🏠 Homepage
 
-![Homepage](/screenshots/homepage.png)
+![Homepage](/public/screenshots/homepage.png)
 
 ### 💼 Projects Section
 
-![Projects](/screenshots/projects.png)
+![Projects](/public/screenshots/projects.png)
 
 ### 📧 Contact Form
 
-![Contact Form](/screenshots/contact.png)
+![Contact Form](/public/screenshots/contact.png)
 
 ---
 
