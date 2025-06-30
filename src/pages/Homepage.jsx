@@ -7,6 +7,10 @@ import Wrapper from "../components/wrapper";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 import useFetchJson from "../hooks/useFetchJson";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Homepage = () => {
   const {
@@ -27,6 +31,8 @@ const Homepage = () => {
 
   const location = useLocation();
   const form = useRef();
+  const contactRef = useRef(null);
+  const projectsRef = useRef(null);
 
   useEffect(() => {
     if (location.hash) {
@@ -64,6 +70,65 @@ const Homepage = () => {
       );
   };
 
+  useEffect(() => {
+    if (loadingAbout || loadingSkills || loadingProjects || !contactRef.current)
+      return;
+    console.log("GSAP effect running");
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        contactRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: contactRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reset", // ensures it only plays on enter
+          },
+        }
+      );
+    }, contactRef);
+
+    ScrollTrigger.refresh();
+
+    return () => ctx.revert();
+  }, [loadingAbout, loadingProjects, loadingSkills]);
+
+  useEffect(() => {
+    if (
+      loadingAbout ||
+      loadingSkills ||
+      loadingProjects ||
+      !projectsRef.current
+    )
+      return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        projectsRef.current,
+        { opacity: 0, y: 50 }, // 👈 slide in from left
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: projectsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reset", // slide in & out
+            // markers: true, // optional debugging
+          },
+        }
+      );
+    }, projectsRef);
+
+    return () => ctx.revert();
+  }, [loadingAbout, loadingSkills, loadingProjects]);
+
   if (loadingAbout || loadingSkills || loadingProjects)
     return <p>Loading...</p>;
   if (errorAbout || errorSkills || errorProjects)
@@ -92,7 +157,11 @@ const Homepage = () => {
       </div>
 
       {/* projects */}
-      <section id="projects" className="projects flex gap-2 flex-col">
+      <section
+        id="projects"
+        ref={projectsRef}
+        className="projects flex gap-2 flex-col"
+      >
         <h1 className="text-white text-lg font-bold">Featured Projects</h1>
         <div className="projects-wrapper flex flex-col gap-5">
           {/* project 1 */}
@@ -135,7 +204,11 @@ const Homepage = () => {
             ))}
         </div>
       </section>
-      <section id="contact" className="contact flex flex-col gap-3">
+      <section
+        id="contact"
+        ref={contactRef}
+        className="contact flex flex-col gap-3"
+      >
         <h1 className="text-white font-bold text-lg">Contact</h1>
         <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-2">
           <div className="text-[#8FADCC] flex flex-col gap-4 flex-auto max-w-xs">

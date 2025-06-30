@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "name": "Project Alpha",
-    "description": "A web application for managing tasks and projects",
+    "name": "Inventory Manager",
+    "description": "A mobile application for keeping track of store inventory",
     "image": "/image1.jpg",
     "category": "Web Development",
     "link": "https://yourprojectalpha.com",
@@ -10,8 +10,8 @@
   },
   {
     "id": 2,
-    "name": "Project Beta",
-    "description": "An e-commerce platform for selling digital products",
+    "name": "UniTransit",
+    "description": "A mobile-based university transport system for booking campus rides with real-time map integration",
     "image": "/image2.jpg",
     "category": "Mobile Development",
     "link": "https://yourprojectbeta.com",

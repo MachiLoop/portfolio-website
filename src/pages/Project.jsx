@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../components/wrapper";
 import Card from "../components/card";
 import useFetchJson from "../hooks/useFetchJson.js";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useLayoutEffect } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Project = () => {
   const {
@@ -11,6 +16,99 @@ const Project = () => {
   } = useFetchJson("/data/projects.json");
 
   const [filterCategory, setFilterCategory] = useState("");
+
+  const searchRef = useRef(null);
+  const listRef = useRef(null);
+  const projectRefs = useRef([]);
+  projectRefs.current = [];
+
+  useLayoutEffect(() => {
+    if (loadingProjects || errorProjects) return;
+
+    if (!searchRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(searchRef.current, {
+        x: -100,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.2,
+      });
+    });
+
+    console.log("searchRef is:", searchRef.current);
+
+    return () => ctx.revert();
+  }, [loadingProjects, errorProjects]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      projectRefs.current.forEach((card, i) => {
+        if (!card) return;
+
+        // Scroll-in animation
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            delay: i * 0.1,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // Hover animation
+        const onEnter = () => {
+          gsap.to(card, {
+            scale: 1.03,
+            y: -5,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        };
+
+        const onLeave = () => {
+          gsap.to(card, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        };
+
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mouseleave", onLeave);
+
+        // Store for cleanup
+        card._gsapHoverListeners = { onEnter, onLeave };
+      });
+    });
+
+    return () => {
+      // Cleanup hover listeners
+      projectRefs.current.forEach((card) => {
+        if (card?._gsapHoverListeners) {
+          card.removeEventListener(
+            "mouseenter",
+            card._gsapHoverListeners.onEnter
+          );
+          card.removeEventListener(
+            "mouseleave",
+            card._gsapHoverListeners.onLeave
+          );
+        }
+      });
+      ctx.revert(); // Clean up GSAP animations
+    };
+  }, [projects, filterCategory]);
 
   if (loadingProjects) return <p>Loading...</p>;
   if (errorProjects) return <p>Error loading some data.</p>;
@@ -25,7 +123,7 @@ const Project = () => {
         </p>
       </div>
       <div className="flex flex-col gap-3 rounded-md">
-        <div className="flex bg-[#21364A] py-2 px-3 rounded-md">
+        <div className="flex bg-[#21364A] py-2 px-3 rounded-md" ref={searchRef}>
           <img src="search.png" alt="search icon" />
           <input
             type="search"
@@ -56,13 +154,20 @@ const Project = () => {
           </Card>
         </div>
       </div>
-      <div className="projects-list grid grid-cols-3 gap-x-3 gap-y-6 max-lg:grid-cols-2">
+      <div
+        className="projects-list grid grid-cols-3 gap-x-3 gap-y-6 max-lg:grid-cols-2"
+        ref={listRef}
+      >
         {projects
           .filter((project) =>
             filterCategory === "" ? true : project.category === filterCategory
           )
-          .map((project) => (
-            <div key={project.id} className="text-sm flex flex-col gap-3">
+          .map((project, i) => (
+            <div
+              key={project.id}
+              ref={(el) => (projectRefs.current[i] = el)}
+              className="text-sm flex flex-col gap-3 "
+            >
               <div className="h-40 max-sm:h-28">
                 <img
                   src={project.image}
