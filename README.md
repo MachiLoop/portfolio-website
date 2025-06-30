@@ -83,7 +83,7 @@ The contact form uses [EmailJS](https://www.emailjs.com) for sending messages wi
 
 ## 🔗 Live Demo
 
-[View the live portfolio](https://machiloop.github.io/portfolio-website/)
+[View the live portfolio](https://portfolio-website-liard-nu.vercel.app/)
 
 ---
 
@@ -91,15 +91,15 @@ The contact form uses [EmailJS](https://www.emailjs.com) for sending messages wi
 
 ### 🏠 Homepage
 
-![Homepage](./screenshots/homepage.png)
+![Homepage](/screenshots/homepage.png)
 
 ### 💼 Projects Section
 
-![Projects](./screenshots/projects.png)
+![Projects](/screenshots/projects.png)
 
 ### 📧 Contact Form
 
-![Contact Form](./screenshots/contact-form.png)
+![Contact Form](/screenshots/contact.png)
 
 ---
 
