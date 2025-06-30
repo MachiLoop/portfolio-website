@@ -16,6 +16,7 @@ const Project = () => {
   } = useFetchJson("/data/projects.json");
 
   const [filterCategory, setFilterCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const searchRef = useRef(null);
   const listRef = useRef(null);
@@ -130,24 +131,30 @@ const Project = () => {
             name="search"
             id="search"
             placeholder="Search Projects"
-            className="outline-none w-full h-full text-[#9CADBF] px-2 "
+            className="outline-none w-full h-full text-[#9CADBF] px-2"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="flex gap-2 text-white flex-wrap">
           <Card
             styles="cursor-pointer"
+            color={filterCategory == "" ? "bg-[#3D99F5]" : null}
             onClickHandler={() => setFilterCategory("")}
           >
             All
           </Card>
           <Card
             styles="cursor-pointer"
+            color={filterCategory == "Web Development" ? "bg-[#3D99F5]" : null}
             onClickHandler={() => setFilterCategory("Web Development")}
           >
             Web Development
           </Card>
           <Card
             styles="cursor-pointer"
+            color={
+              filterCategory == "Mobile Development" ? "bg-[#3D99F5]" : null
+            }
             onClickHandler={() => setFilterCategory("Mobile Development")}
           >
             Mobile Development
@@ -159,9 +166,15 @@ const Project = () => {
         ref={listRef}
       >
         {projects
-          .filter((project) =>
-            filterCategory === "" ? true : project.category === filterCategory
+          .filter(
+            (project) =>
+              (filterCategory === "" || project.category === filterCategory) &&
+              (project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                project.description
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase()))
           )
+
           .map((project, i) => (
             <div
               key={project.id}
