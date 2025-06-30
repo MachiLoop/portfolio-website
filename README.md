@@ -7,11 +7,11 @@ A modern and responsive developer portfolio built with **React**, showcasing my 
 ## 🚀 Features
 
 - ⚡ Smooth scrolling navigation
-- 💼 Project filtering by category (Web & Mobile)
-- 📂 Data-driven projects via local JSON files
-- 📧 Contact form powered by EmailJS
-- 📱 Fully responsive and mobile-friendly UI
-- 🎨 TailwindCSS for styling
+- 💼 Scroll-triggered animations using GSAP
+- 📂 Data-driven sections powered by local JSON files
+- 📧 Contact form with EmailJS integration
+- 📱 Fully responsive and mobile-friendly layout
+- 🎨 Styled with TailwindCSS
 
 ---
 
@@ -19,9 +19,10 @@ A modern and responsive developer portfolio built with **React**, showcasing my 
 
 - **React**
 - **TailwindCSS**
-- **EmailJS** (client-side email sending)
+- **GSAP + ScrollTrigger**
+- **EmailJS**
 - **React Router**
-- **Custom Hooks**
+- **Custom React Hooks**
 
 ---
 
@@ -29,15 +30,14 @@ A modern and responsive developer portfolio built with **React**, showcasing my 
 
 ```
 src/
-├── components/       # Reusable UI components (Card, Wrapper, etc.)
-├── pages/            # Page-level components (Homepage, Project)
-├── hooks/            # Custom hooks (e.g. useFetchJson)
-├── assets/           # Static images and icons
-└── App.jsx           # App entry with routing
+├── components/       # Reusable UI components (Card, Wrapper, Footer, etc.)
+├── pages/            # Page-level components (Homepage)
+├── hooks/            # Custom hooks like useFetchJson
+├── assets/           # Static images, icons
+└── App.jsx           # App entry with routes
 
 public/
-├── data/             # Local JSON files (projects.json, skills.json, etc.)
-
+└── data/             # Local JSON data (about.json, skills.json, projects.json)
 ```
 
 ---
@@ -47,8 +47,8 @@ public/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/your-portfolio.git
-cd your-portfolio
+git clone https://github.com/machiloop/portfolio-website.git
+cd portfolio-website
 ```
 
 ### 2. Install dependencies
@@ -67,26 +67,39 @@ npm run dev
 
 ## 🔐 EmailJS Setup
 
-This project uses EmailJS to handle contact form submissions from the frontend.
+The contact form uses [EmailJS](https://www.emailjs.com) for sending messages without a backend.
 
 ### Steps:
 
-1. Create an account on [https://www.emailjs.com](https://www.emailjs.com)
-2. Create a service and email template.
-3. Add your **Service ID**, **Template ID**, and **Public Key** to your contact form logic.
-4. (Optional) Restrict allowed domains and enable reCAPTCHA.
+1. Create an EmailJS account and email service
+2. Create an email template
+3. Get your:
+   - **Service ID**
+   - **Template ID**
+   - **Public Key**
+4. Replace the placeholders in the `sendEmail` function in `Homepage.jsx`
 
 ---
 
 ## 🔗 Live Demo
 
-[View the live portfolio](https://your-live-site-link.com)
+[View the live portfolio](https://machiloop.github.io/portfolio-website/)
 
 ---
 
 ## 📸 Screenshots
 
-> Add a few screenshots of the homepage, project page, and contact form here.
+### 🏠 Homepage
+
+![Homepage](./screenshots/homepage.png)
+
+### 💼 Projects Section
+
+![Projects](./screenshots/projects.png)
+
+### 📧 Contact Form
+
+![Contact Form](./screenshots/contact-form.png)
 
 ---
 
@@ -100,4 +113,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Hamidu Sodiq Omeiza**  
 Full-Stack Web + Mobile Developer  
-[LinkedIn](https://linkedin.com/in/yourprofile) • [Twitter](https://twitter.com/yourhandle)
+[LinkedIn](https://linkedin.com/in/hsodiq14)
